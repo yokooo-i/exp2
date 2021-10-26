@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="js/pixi.min.js"></script>
+    <script>
+		var app = new PIXI.Application(1500,750);
+        document.body.appendChild(app.view);
+        
+        var bg1 = new PIXI.Sprite.fromImage("res/bg1.png");
+        bg1.width = 1500;
+        bg1.height = 750;
+        app.stage.addChild(bg1);
+        
+        var sen1 = new PIXI.Sprite.fromImage("res/sen1.png");
+        sen1.x = 1500;
+        sen1.y = 100;       
+        app.stage.addChild(sen1);
+                        
+        var sen2 = new PIXI.Sprite.fromImage("res/sen2.png");
+        sen2.x = 1500;
+        sen2.y = 155;
+        app.stage.addChild(sen2);
+        
+        app.ticker.add(animate);
+        function animate(){
+        	if(sen1.x != 950){
+        		sen1.x-=5;
+        	}
+        	if(sen2.x != 1050){
+        		sen2.x-=3;
+        	}
+        }
+       	
+       	var rp = new PIXI.Sprite.fromImage("res/rp.png");
+       	rp.anchor.set(0.7,0.3);
+       	bg1.interactive=true;
+        bg1.on("mousemove",move);       	
+       	function move(event){
+       		var pos = event.data.getLocalPosition(app.stage);       	       		
+       		rp.x = pos.x;
+       		rp.y = pos.y;
+       		app.stage.addChild(rp);
+       	}
+       	
+       	bg1.interactive=true;
+        bg1.on("click",click);       	
+       	function click(event){
+       		var pos = event.data.getLocalPosition(app.stage);
+       		var blood = new PIXI.Sprite.fromImage("res/blood.png");
+       		blood.anchor.set(0.5,0.5);
+       		var a = Math.random()*5;
+       		blood.scale.x = a;
+       		blood.scale.y = a;
+       		blood.rotation = Math.random()*5;
+       		blood.x = pos.x;
+       		blood.y = pos.y;
+       		app.stage.addChild(blood);
+       	}
+       
+        
+        
+        
+    </script>
+</body>
+</html>
